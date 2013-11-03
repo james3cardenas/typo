@@ -4,7 +4,7 @@
   <%= render :partial => "form" %>
   <% end %>
   <% if (current_user.admin?) %> 
-  <h2> Merge With This Article <h2>
+  <h2> Merge Articles <h2>
   <%= form_tag '/admin/content/merge' do %>
     <%= label_tag 'article_id', 'Article ID' %>
     <%= text_field_tag 'merge_with' %>
