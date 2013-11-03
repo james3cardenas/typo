@@ -84,7 +84,7 @@ class Admin::ContentController < Admin::BaseController
       nil
     end
   end
-
+#controller method for merge
     def merge
     article_1 = Article.find_by_id(params['orig_article'])
     article_2 = Article.find_by_id(params['merging_article'])
