@@ -80,6 +80,28 @@ class Article < Content
     Article.exists?({:parent_id => self.id})
   end
 
+  def merge_articles(article)
+     new_article = Article.create(:title => self.title, :author => self.author, :body => self.body + article.body, :user_id => self.user_id, :published => true, :allow_comments => true)
+     feedback_1 = Feedback.find_all_by_article_id(self.id)
+     feedback_2 = Feedback.find_all_by_article_id(article.id)
+     if feedback_1.blank?
+     else
+	feedback_1.each do |feedback|
+		feedback.article_id = new_article.id
+		feedback.save
+	end
+     end
+     if feedback_2.blank?
+     else
+	feedback_2.each do |feedback|
+		feedback.article_id = new_article.id
+		feedback.save
+        end
+     end
+	Article.destroy(self.id)
+	Article.destroy(article.id)
+	new_article
+  end
   attr_accessor :draft, :keywords
 
   has_state(:state,

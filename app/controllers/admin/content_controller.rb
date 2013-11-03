@@ -85,6 +85,14 @@ class Admin::ContentController < Admin::BaseController
     end
   end
 
+    def merge
+    article_1 = Article.find_by_id(params['orig_article'])
+    article_2 = Article.find_by_id(params['merging_article'])
+
+    article_1.merge_articles(article_2)
+    redirect_to '/admin/content'
+    end
+
   def autosave
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]

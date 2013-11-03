@@ -2,5 +2,14 @@
 <%= form_tag(form_action, :id => "#{form_type}_form", :enctype => "multipart/form-data", :class => className) do %>
 
   <%= render :partial => "form" %>
-
-<% end %>
+  <% end %>
+  <% if (current_user.admin?) %> 
+  <h2> Merge With This Article <h2>
+  <%= form_tag '/admin/content/merge' do %>
+    <%= label_tag 'article_id', 'Article ID' %>
+    <%= text_field_tag 'merging_article' %>
+    <%= hidden_field_tag 'orig_article', @article.id %>
+    <%= submit_tag 'Merge Articles' %>
+  
+  <% end %>
+ <% end %>
